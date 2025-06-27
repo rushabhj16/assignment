@@ -1,0 +1,31 @@
+# Java
+target/
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+logs/
+*.tmp
+
+# Git
+.git
+.gitignore
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Docker itself
+.dockerignore
+Dockerfile
+
+# Test config
+test-outputs/
+.env

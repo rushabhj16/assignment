@@ -1,0 +1,78 @@
+name: Customer API CD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-dev:
+    name: Deploy to Dev
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Build JAR
+        run: mvn clean package -DskipTests
+
+      - name: Deploy to Dev Environment
+        run: echo "Deploying to Dev..."
+
+  approve-qa:
+    name: Approval Gate for QA
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wait for QA Approval
+        uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Manual approval (override)
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ secrets.GITHUB_TOKEN }}
+          approvers: user1,user2
+          timeout-minutes: 60
+          issue-title: "QA Deployment Approval Required"
+          issue-body: "Please approve deployment to QA."
+
+  deploy-qa:
+    name: Deploy to QA
+    needs: approve-qa
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to QA
+        run: echo "Deploying to QA..."
+
+  approve-prod:
+    name: Approval Gate for Prod
+    needs: deploy-qa
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Manual approval for Prod
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ secrets.GITHUB_TOKEN }}
+          approvers: user1,user2
+          timeout-minutes: 60
+          issue-title: "Prod Deployment Approval Required"
+          issue-body: "Please approve deployment to Production."
+
+  deploy-prod:
+    name: Deploy to Prod
+    needs: approve-prod
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Production
+        run: echo "Deploying to Production..."
