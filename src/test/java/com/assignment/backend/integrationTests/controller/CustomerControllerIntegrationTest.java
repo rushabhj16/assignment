@@ -50,39 +50,39 @@ class CustomerControllerIntegrationTest {
 
     @Test
     void getAllCustomers_shouldReturnList() throws Exception {
-        mockMvc.perform(get("/api/customers"))
+        mockMvc.perform(get("/api/v1.0/customers"))
                 .andExpect(status().isOk());
     }
 
     @Test
     void getCustomerById_found() throws Exception {
-        mockMvc.perform(get("/api/customers/{id}", testCustomer.getId()))
+        mockMvc.perform(get("/api/v1.0/customers/{id}", testCustomer.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.emailAddress").value("clark.integration@example.com"));
     }
 
     @Test
     void getCustomerById_notFound() throws Exception {
-        mockMvc.perform(get("/api/customers/{id}", UUID.randomUUID()))
+        mockMvc.perform(get("/api/v1.0/customers/{id}", UUID.randomUUID()))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void headRequest_shouldReturnCorrectStatus() throws Exception {
-        mockMvc.perform(head("/api/customers/{id}", testCustomer.getId()))
+        mockMvc.perform(head("/api/v1.0/customers/{id}", testCustomer.getId()))
                 .andExpect(status().isOk());
     }
 
     @Test
     void searchByEmail_found() throws Exception {
-        mockMvc.perform(get("/api/customers/search")
+        mockMvc.perform(get("/api/v1.0/customers/search")
                         .param("email", "clark.integration@example.com"))
                 .andExpect(status().isOk());
     }
 
     @Test
     void searchByEmail_notFound() throws Exception {
-        mockMvc.perform(get("/api/customers/search")
+        mockMvc.perform(get("/api/v1.0/customers/search")
                         .param("email", "unknown@example.com"))
                 .andExpect(status().isNotFound());
     }
@@ -97,7 +97,7 @@ class CustomerControllerIntegrationTest {
                 .contactNumber("+1987654321")
                 .build();
 
-        mockMvc.perform(post("/api/customers")
+        mockMvc.perform(post("/api/v1.0/customers")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(dto)))
                 .andExpect(status().isCreated());
@@ -112,7 +112,7 @@ class CustomerControllerIntegrationTest {
                 .contactNumber("+1234567890")
                 .build();
 
-        mockMvc.perform(post("/api/customers")
+        mockMvc.perform(post("/api/v1.0/customers")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(dto)))
                 .andExpect(status().isBadRequest());
@@ -128,7 +128,7 @@ class CustomerControllerIntegrationTest {
                 .contactNumber("+1111111111")
                 .build();
 
-        mockMvc.perform(put("/api/customers/{id}", testCustomer.getId())
+        mockMvc.perform(put("/api/v1.0/customers/{id}", testCustomer.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(dto)))
                 .andExpect(status().isOk());
@@ -136,7 +136,7 @@ class CustomerControllerIntegrationTest {
 
     @Test
     void patchContactNumber_success() throws Exception {
-        mockMvc.perform(patch("/api/customers/{id}/contact", testCustomer.getId())
+        mockMvc.perform(patch("/api/v1.0/customers/{id}/contact", testCustomer.getId())
                         .param("contactNumber", "+10987654321"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.contactNumber").value("+10987654321"));
@@ -144,13 +144,13 @@ class CustomerControllerIntegrationTest {
 
     @Test
     void deleteCustomer_success() throws Exception {
-        mockMvc.perform(delete("/api/customers/{id}", testCustomer.getId()))
+        mockMvc.perform(delete("/api/v1.0/customers/{id}", testCustomer.getId()))
                 .andExpect(status().isNoContent());
     }
 
     @Test
     void options_shouldListMethods() throws Exception {
-        mockMvc.perform(options("/api/customers"))
+        mockMvc.perform(options("/api/v1.0/customers"))
                 .andExpect(status().isOk())
                 .andExpect(header().string("Allow", containsString("GET")))
                 .andExpect(header().string("Allow", containsString("POST")))

@@ -118,15 +118,15 @@ minikube dashboard
 
 | Method  | Endpoint                      | Description                    |
 |---------|-------------------------------|--------------------------------|
-| GET     | `/api/customers`              | Get all customers              |
-| GET     | `/api/customers/{id}`         | Get a customer by ID           |
-| GET     | `/api/customers/search`       | Get customer by email address  |
-| POST    | `/api/customers`              | Create a new customer          |
-| PUT     | `/api/customers/{id}`         | Update full customer details   |
-| PATCH   | `/api/customers/{id}/contact` | Update only contact number     |
-| DELETE  | `/api/customers/{id}`         | Delete a customer              |
-| HEAD    | `/api/customers/{id}`         | Check if customer exists by ID |
-| OPTIONS | `/api/customers`              | List supported HTTP methods    |
+| GET     | `/api/v1.0/customers`              | Get all customers              |
+| GET     | `/api/v1.0/customers/{id}`         | Get a customer by ID           |
+| GET     | `/api/v1.0/customers/search`       | Get customer by email address  |
+| POST    | `/api/v1.0/customers`              | Create a new customer          |
+| PUT     | `/api/v1.0/customers/{id}`         | Update full customer details   |
+| PATCH   | `/api/v1.0/customers/{id}/contact` | Update only contact number     |
+| DELETE  | `/api/v1.0/customers/{id}`         | Delete a customer              |
+| HEAD    | `/api/v1.0/customers/{id}`         | Check if customer exists by ID |
+| OPTIONS | `/api/v1.0/customers`              | List supported HTTP methods    |
 
 ### Validation
 

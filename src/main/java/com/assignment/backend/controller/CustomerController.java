@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 @Tag(name = "Customer Controller", description = "CRUD operations for customers")
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/v1.0/customers")
 @Validated
 public class CustomerController {
 
