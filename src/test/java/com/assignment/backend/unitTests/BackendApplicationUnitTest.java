@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class BackendApplicationUnitTest {
 
-	@Test
-	void mainMethod_shouldRunWithoutExceptions() {
-		assertDoesNotThrow(() -> BackendApplication.main(new String[]{}));
-	}
+    @Test
+    void mainMethod_shouldRunWithoutExceptions() {
+        assertDoesNotThrow(() -> BackendApplication.main(new String[]{}));
+    }
 }

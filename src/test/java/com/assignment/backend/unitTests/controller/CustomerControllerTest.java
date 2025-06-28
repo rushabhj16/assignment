@@ -6,14 +6,11 @@ import com.assignment.backend.entity.Customer;
 import com.assignment.backend.exception.CustomerNotFoundException;
 import com.assignment.backend.service.CustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -21,25 +18,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CustomerController.class)
 class CustomerControllerTest {
 
+    private final UUID testId = UUID.randomUUID();
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private CustomerService service;
-
     @Autowired
     private ObjectMapper objectMapper;
-
-    private final UUID testId = UUID.randomUUID();
 
     private Customer testCustomer() {
         return Customer.builder()

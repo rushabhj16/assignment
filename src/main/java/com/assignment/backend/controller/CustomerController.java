@@ -1,14 +1,12 @@
 package com.assignment.backend.controller;
 
+import com.assignment.backend.dto.CustomerMapper;
 import com.assignment.backend.dto.CustomerRequestDTO;
 import com.assignment.backend.dto.CustomerResponseDTO;
-import com.assignment.backend.dto.CustomerMapper;
 import com.assignment.backend.entity.Customer;
 import com.assignment.backend.service.CustomerService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

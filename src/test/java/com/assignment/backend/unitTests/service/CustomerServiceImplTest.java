@@ -4,26 +4,27 @@ import com.assignment.backend.entity.Customer;
 import com.assignment.backend.exception.CustomerNotFoundException;
 import com.assignment.backend.exception.DuplicateEmailException;
 import com.assignment.backend.repository.CustomerRepository;
-
 import com.assignment.backend.service.impl.CustomerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class CustomerServiceImplTest {
 
+    private final UUID customerId = UUID.randomUUID();
     @Mock
     private CustomerRepository repository;
-
     @InjectMocks
     private CustomerServiceImpl service;
-
-    private final UUID customerId = UUID.randomUUID();
     private Customer sampleCustomer;
 
     @BeforeEach

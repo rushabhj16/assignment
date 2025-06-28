@@ -12,10 +12,11 @@ import java.util.Arrays;
 @Component
 public class LoggingAspect {
 
-    @Pointcut("execution(* com.assignment.backend.unitTests.service..*(..)) || " +
-            "execution(* com.assignment.backend.unitTests.controller..*(..)) || " +
+    @Pointcut("execution(* com.assignment.backend.service..*(..)) || " +
+            "execution(* com.assignment.backend.controller..*(..)) || " +
             "execution(* com.assignment.backend.repository..*(..))")
-    public void applicationLayer() {}
+    public void applicationLayer() {
+    }
 
     @Before("applicationLayer()")
     public void logBefore(JoinPoint joinPoint) {
