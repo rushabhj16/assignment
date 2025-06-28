@@ -1,0 +1,47 @@
+name: Customer API CI
+
+on:
+  push:
+    branches:
+      - wrong-main-branch
+  pull_request:
+
+env:
+  RUN_ACCEPTANCE: ${{ secrets.RUN_ACCEPTANCE }}
+
+jobs:
+  build-and-unit-test:
+    if: env.RUN_ACCEPTANCE != 'true'
+    runs-on: ubuntu-latest
+    name: Build and Unit Test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Run Unit Tests
+        run: mvn clean test
+
+  acceptance-tests:
+    if: env.RUN_ACCEPTANCE == 'true'
+    runs-on: ubuntu-latest
+    name: Run Acceptance Tests
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Run Acceptance Tests
+        run: mvn verify -Pacceptance
